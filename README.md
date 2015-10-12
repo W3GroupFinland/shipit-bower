@@ -1,84 +1,81 @@
-# shipit-npm
+# shipit-bower
 
-A set of tasks for [Shipit](https://github.com/shipitjs/shipit) used for [npm](https://docs.npmjs.com/) specific tasks on deploy.
+A set of tasks for [Shipit](https://github.com/shipitjs/shipit) used for [bower](https://bower.io/) specific tasks on deploy.
 
-Inspired by the [capistrano/composer](https://github.com/capistrano/composer/) extension.
-
+This is a modified version of the [shipit-npm](https://github.com/callerc1/shipit-npm) extension by [@callerc1](https://github.com/callerc1). This extension was forked from the 0.2.0 tag and is feature matched to that version.
 
 **Features:**
 
 - Triggered on the `updated` or `fetched` event from [shipit-deploy](https://github.com/shipitjs/shipit-deploy)
-- Has a direct pass though task to [npm cli](https://docs.npmjs.com/cli)
+- Has a direct pass though task to [bower api](http://bower.io/docs/api/)
 - Works via [shipit-cli](https://github.com/shipitjs/shipit) and [grunt-shipit](https://github.com/shipitjs/grunt-shipit)
 
 ## Install
 
-```
-npm install shipit-npm
+```sh
+$ npm install shipit-bower
 ```
 
 ## Usage
 
-Just simply run: (This triggers the `npm` task on the deploy `updated` or `fetched` event. No additional config necessary.)
+Just simply run: (This triggers the `bower` task on the deploy `updated` or `fetched` event. No additional config necessary.)
 
-```
-shipit staging deploy
+```sh
+$ shipit staging deploy
 
 ```
 
 Or you can run the tasks separatly :
 
-```
-shipit staging npm:init npm:install
-shipit staging npm:run --cmd "update"
+```sh
+$ shipit staging bower:init bower:install
+$ shipit staging bower:run --cmd "update"
 
 ```
 
+## Options `shipit.config.bower`
 
-## Options `shipit.config.npm`
-
-### `npm.remote`
+### `bower.remote`
 
 Type: `Boolean`
 Default: `true`
 
 A Boolean to determine whether to run the task in local workspace or on the remote.
 
-### `npm.installArgs`
+### `bower.installArgs`
 
 Type: `Array` or `String`
 Default: []
 
-An array or string specifying npm args passed to the [npm install](https://docs.npmjs.com/cli/install) cmd.
+An array or string specifying bower args passed to the [bower install](http://bower.io/docs/api/#install) cmd.
 
-### `npm.installFlags`
+### `bower.installFlags`
 
 Type: `Array` or `String`
 Default: []
 
-An array or string specifying npm flags passed to the [npm install](https://docs.npmjs.com/cli/install) cmd.
+An array or string specifying bower flags passed to the [bower install](http://bower.io/docs/api/#install) cmd.
 
-### `npm.triggerEvent`
+### `bower.triggerEvent`
 
 Type: `String`,`Boolean`
-Default: `updated` or `fetched` (depending on `npm.remote` value)
+Default: `updated` or `fetched` (depending on `bower.remote` value)
 
-An event name that triggers `npm:install`. Can be set to false to prevent the `npm:install` task from listening to any events.
-
+An event name that triggers `bower:install`. Can be set to false to prevent the `bower:install` task from listening to any events.
 
 ### Example `shipitfile.js` options usage
 
 ```js
 module.exports = function (shipit) {
   require('shipit-deploy')(shipit);
-  require('shipit-npm')(shipit);
+  require('shipit-bower')(shipit);
 
   shipit.initConfig({
     default: {
-      npm: {
+      bower: {
         remote: false,
-        installArgs: ['gulp'],
-        installFlags: ['-g']
+        installArgs: ['materialize'],
+        installFlags: ['--save']
       }
     }
   });
@@ -87,21 +84,21 @@ module.exports = function (shipit) {
 
 ## Workflow tasks
 
-- npm
-  - npm:init
-      - Emit event "npm_inited".
-  - npm:install
-    - Runs npm install (with any Args `npm.installArgs` or Flags `npm.installFlags` defined in options)
-    - Emit event "npm_installed"
-  - npm:run
-      - Runs npm command.
+- bower
+  - bower:init
+      - Emit event "bower_inited".
+  - bower:install
+    - Runs bower install (with any Args `bower.installArgs` or Flags `bower.installFlags` defined in options)
+    - Emit event "bower_installed"
+  - bower:run
+      - Runs bower command.
 
 ##### Event flow:
 
 - on Event "deploy" (shipit-deploy initialized)
-  - Runs *npm:init*
-  - on Event "npm_inited"
-    - Runs *npm:install* (Triggered on the `updated` or `fetched` event from [shipit-deploy](https://github.com/shipitjs/shipit-deploy) or by a custom `npm.triggerEvent` as mentioned above.)
+  - Runs *bower:init*
+  - on Event "bower_inited"
+    - Runs *bower:install* (Triggered on the `updated` or `fetched` event from [shipit-deploy](https://github.com/shipitjs/shipit-deploy) or by a custom `bower.triggerEvent` as mentioned above.)
 
 ## License
 
