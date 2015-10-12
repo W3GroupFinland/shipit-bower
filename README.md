@@ -2,7 +2,7 @@
 
 A set of tasks for [Shipit](https://github.com/shipitjs/shipit) used for [bower](https://bower.io/) specific tasks on deploy.
 
-This is a modified version of the [shipit-npm](https://github.com/callerc1/shipit-npm) extension by [@callerc1](https://github.com/callerc1). This extension was forked from the 0.2.0 tag and is feature matched to that version.
+This is a modified version of the [shipit-npm](https://github.com/callerc1/shipit-npm) extension by [@callerc1](https://github.com/callerc1). This extension was forked from the 0.2.0 tag and is feature matched to that version. The majority of the work was undertaken by @callerc1 who set up a well written plug-in that was easy to repurpose.
 
 **Features:**
 
