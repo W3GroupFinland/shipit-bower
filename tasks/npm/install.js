@@ -4,18 +4,18 @@ var sprintf = require('sprintf-js').sprintf;
 var Bluebird = require('bluebird');
 
 /**
- * Runs npm install
+ * Runs bower install
  */
 
 module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'npm:install', task);
+  utils.registerTask(gruntOrShipit, 'bower:install', task);
 
   function task() {
     var shipit = utils.getShipit(gruntOrShipit);
 
     function install(remote) {
 
-      shipit.log('Installing npm modules.');
+      shipit.log('Installing bower modules.');
       var method = remote ? 'remote' : 'local';
       var cdPath = remote ? shipit.releasePath || shipit.currentPath : shipit.config.workspace;
 
@@ -26,24 +26,24 @@ module.exports = function (gruntOrShipit) {
         );
       }
 
-      var args = Array.isArray(shipit.config.npm.installArgs) ? shipit.config.npm.installArgs.join(' ') : shipit.config.npm.installArgs;
-      var flags = Array.isArray(shipit.config.npm.installFlags) ? shipit.config.npm.installFlags.join(' ') : shipit.config.npm.installFlags;
+      var args = Array.isArray(shipit.config.bower.installArgs) ? shipit.config.bower.installArgs.join(' ') : shipit.config.bower.installArgs;
+      var flags = Array.isArray(shipit.config.bower.installFlags) ? shipit.config.bower.installFlags.join(' ') : shipit.config.bower.installFlags;
       var AF = args ? flags ? args.concat(' ',flags) : args : flags ? flags : '';
 
       return shipit[method](
-        sprintf('node -v && cd %s && npm i %s', cdPath, AF)
+        sprintf('node -v && cd %s && bower i %s', cdPath, AF)
       );
 
     }
 
-    if(shipit.npm_inited) {
+    if(shipit.bower_inited) {
 
-      return install(shipit.config.npm.remote)
+      return install(shipit.config.bower.remote)
       .then(function () {
-        shipit.log(chalk.green('npm install complete'));
+        shipit.log(chalk.green('bower install complete'));
       })
       .then(function () {
-        shipit.emit('npm_installed')
+        shipit.emit('bower_installed')
       })
       .catch(function (e) {
         shipit.log(chalk.red(e));
@@ -52,7 +52,7 @@ module.exports = function (gruntOrShipit) {
     }else {
       throw new Error(
         shipit.log(
-          chalk.gray('try running npm:init before npm:install')
+          chalk.gray('try running bower:init before bower:install')
         )
       );
     }

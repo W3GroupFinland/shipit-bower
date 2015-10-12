@@ -1,10 +1,10 @@
 var utils = require('shipit-utils');
 
 /**
- * Register NPM tasks.
- * - npm
- * - npm:install
- * - npm:run
+ * Register bower tasks.
+ * - bower
+ * - bower:install
+ * - bower:run
  */
 
 module.exports = function (gruntOrShipit) {
@@ -14,18 +14,18 @@ module.exports = function (gruntOrShipit) {
   require('./install')(gruntOrShipit);
   require('./cmd')(gruntOrShipit);
 
-  utils.registerTask(gruntOrShipit, 'npm:run', [
-    'npm:init',
-    'npm:cmd'
+  utils.registerTask(gruntOrShipit, 'bower:run', [
+    'bower:init',
+    'bower:cmd'
   ]);
 
   shipit.on('deploy', function () {
-    shipit.start('npm:init');
+    shipit.start('bower:init');
 
-    shipit.on('npm_inited', function () {
-      if (shipit.config.npm.triggerEvent) {
-        shipit.on(shipit.config.npm.triggerEvent, function () {
-          shipit.start('npm:install');
+    shipit.on('bower_inited', function () {
+      if (shipit.config.bower.triggerEvent) {
+        shipit.on(shipit.config.bower.triggerEvent, function () {
+          shipit.start('bower:install');
         });
       }
     });

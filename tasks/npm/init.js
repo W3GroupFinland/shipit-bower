@@ -2,26 +2,26 @@ var utils = require('shipit-utils');
 var path = require('path');
 /**
  * Init task.
- * - Emit npm_inited event.
+ * - Emit bower_inited event.
  */
 
 module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'npm:init', task);
+  utils.registerTask(gruntOrShipit, 'bower:init', task);
 
   function task() {
     var shipit = utils.getShipit(gruntOrShipit);
 
     shipit.config = shipit.config || {};
     shipit.currentPath = shipit.config.deployTo ? path.join(shipit.config.deployTo, 'current') : undefined;
-    shipit.config.npm = shipit.config.npm || {};
-    shipit.config.npm.remote = shipit.config.npm.remote !== false;
-    shipit.config.npm.installArgs = shipit.config.npm.installArgs || [];
-    shipit.config.npm.installFlags = shipit.config.npm.installFlags || [];
+    shipit.config.bower = shipit.config.bower || {};
+    shipit.config.bower.remote = shipit.config.bower.remote !== false;
+    shipit.config.bower.installArgs = shipit.config.bower.installArgs || [];
+    shipit.config.bower.installFlags = shipit.config.bower.installFlags || [];
 
-    var triggerEvent = shipit.config.npm.remote ? 'updated' : 'fetched';
-    shipit.config.npm.triggerEvent = shipit.config.npm.triggerEvent !== undefined ? shipit.config.npm.triggerEvent : triggerEvent;
+    var triggerEvent = shipit.config.bower.remote ? 'updated' : 'fetched';
+    shipit.config.bower.triggerEvent = shipit.config.bower.triggerEvent !== undefined ? shipit.config.bower.triggerEvent : triggerEvent;
 
-    shipit.npm_inited = true;
-    shipit.emit('npm_inited');
+    shipit.bower_inited = true;
+    shipit.emit('bower_inited');
   }
 };
