@@ -1,5 +1,9 @@
 # shipit-bower
 
+___This project is no longer maintained or updated and is archived. Should you choose to fork it, please maintain the proper license and credits.___
+
+___Since Bower itself recommends switching to NPM, please consider doing so and using the appropriate Shipit library___
+
 A set of tasks for [Shipit](https://github.com/shipitjs/shipit) used for [bower](https://bower.io/) specific tasks on deploy.
 
 This is a modified version of the [shipit-npm](https://github.com/callerc1/shipit-npm) extension by [@callerc1](https://github.com/callerc1). This extension was forked from the 0.2.0 tag and is feature matched to that version. The majority of the work was undertaken by @callerc1 who set up a well written plug-in that was easy to repurpose.
