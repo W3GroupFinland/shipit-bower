@@ -17,7 +17,7 @@ module.exports = function (gruntOrShipit) {
 
       shipit.log('Installing bower modules.');
       var method = remote ? 'remote' : 'local';
-      var cdPath = remote ? shipit.releasePath || shipit.currentPath : shipit.config.workspace;
+      var cdPath = remote ? shipit.releasePath || shipit.currentPath : shipit.config.workspace || shipit.workspace;
 
       if(!cdPath) {
         var msg = remote ? 'Please specify a deploy to path (shipit.config.deployTo)' : 'Please specify a workspace (shipit.config.workspace)'
